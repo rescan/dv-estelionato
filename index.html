@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Ocorrência - Estelionato</title>
+    <style>
+        :root {
+            --primary-dark: #343a40;
+            --bg-light: #f8f9fa;
+            --border-color: #dee2e6;
+            --btn-cancel: #a5433f;
+            --btn-next: #343a40;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            text-align: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h1 { font-size: 22px; margin: 0; color: #222; }
+
+        .form-content { padding: 30px; }
+
+        .step-indicator {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 25px;
+        }
+
+        .step {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-align: center;
+            font-size: 14px;
+            color: #adb5bd;
+            background: white;
+        }
+
+        .step.active {
+            background: var(--primary-dark);
+            color: white;
+            border-color: var(--primary-dark);
+        }
+
+        .field-group { margin-bottom: 20px; }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        .hidden { display: none; }
+
+        .conditional-box {
+            padding: 15px;
+            background: #f1f3f5;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .footer {
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            background: #f8f9fa;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+        }
+
+        .btn-cancel { background: var(--btn-cancel); }
+        .btn-next { background: var(--btn-next); }
+
+        #final-text-area {
+            background: #e9ecef;
+            color: #495057;
+            font-family: monospace;
+            resize: none;
+            cursor: not-allowed;
+            height: 120px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Outras Ocorrências</h1>
+    </div>
+
+    <div class="form-content">
+        <div class="step-indicator">
+            <div class="step">Participação</div>
+            <div class="step active">Dados do Golpe</div>
+            <div class="step">Nascimento</div>
+            <div class="step">Documentos</div>
+        </div>
+
+        <form id="stfForm">
+            <div class="field-group">
+                <label>Meio da Ocorrência</label>
+                <select id="meio" onchange="toggleMeio(this.value)">
+                    <option value="">Selecione...</option>
+                    <option value="Virtual">Virtual</option>
+                    <option value="Presencial">Presencial</option>
+                </select>
+            </div>
+
+            <div id="box-virtual" class="hidden conditional-box">
+                <div class="field-group">
+                    <label>Modalidade Virtual</label>
+                    <select id="subtipo-virtual" onchange="toggleSubtipo(this.value)">
+                        <option value="">Selecione...</option>
+                        <option value="Falso aluguel">Falso aluguel</option>
+                        <option value="Falso advogado">Falso advogado</option>
+                        <option value="Falso boleto">Falso boleto</option>
+                        <option value="Compra suspeita em cartão">Compra suspeita em cartão</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+
+                <div id="campos-advogado" class="hidden">
+                    <input type="text" id="adv-nome" placeholder="Nome do Advogado" style="margin-bottom:5px">
+                    <input type="text" id="adv-oab" placeholder="OAB e Estado" style="margin-bottom:5px">
+                </div>
+
+                <div class="field-group">
+                    <label>Plataforma/Meio de Contato do Suspeito</label>
+                    <select id="plataforma" onchange="updateTexto()">
+                        <option value="WhatsApp">WhatsApp</option>
+                        <option value="OLX">OLX</option>
+                        <option value="Facebook Marketplace">Facebook Marketplace</option>
+                        <option value="E-mail">E-mail</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                    <input type="text" id="detalhe-contato" placeholder="URL, Número ou E-mail do golpista" style="margin-top:10px">
+                </div>
+            </div>
+
+            <div id="box-presencial" class="hidden conditional-box">
+                <label>Modalidade Presencial</label>
+                <select id="subtipo-presencial" onchange="updateTexto()">
+                    <option value="Golpe do bilhete premiado">Golpe do bilhete premiado</option>
+                    <option value="Outro">Outro (especificar)</option>
+                </select>
+            </div>
+
+            <div class="field-group">
+                <label>Meio de Pagamento/Transferência</label>
+                <select id="pagamento" onchange="updateTexto()">
+                    <option value="Pix">Pix</option>
+                    <option value="Boleto">Boleto</option>
+                    <option value="Cartão de Crédito">Cartão de Crédito</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+
+            <div class="field-group">
+                <label>Prejuízo Financeiro</label>
+                <select id="tem-prejuizo" onchange="togglePrejuizo(this.value)">
+                    <option value="nao">Não houve prejuízo detectado</option>
+                    <option value="sim">Houve prejuízo financeiro</option>
+                </select>
+                <div id="valor-box" class="hidden" style="margin-top:10px">
+                    <input type="number" id="valor-prejuizo" placeholder="R$ 0,00" oninput="updateTexto()">
+                </div>
+            </div>
+
+            <div class="field-group" style="margin-top:30px">
+                <label>Resumo da Declaração (Gerado Automaticamente)</label>
+                <textarea id="final-text-area" readonly></textarea>
+            </div>
+        </form>
+    </div>
+
+    <div class="footer">
+        <button class="btn btn-cancel">🚫 Cancelar</button>
+        <button class="btn btn-next">👤 Avançar</button>
+    </div>
+</div>
+
+<script>
+    function toggleMeio(val) {
+        document.getElementById('box-virtual').classList.toggle('hidden', val !== 'Virtual');
+        document.getElementById('box-presencial').classList.toggle('hidden', val !== 'Presencial');
+        updateTexto();
+    }
+
+    function toggleSubtipo(val) {
+        document.getElementById('campos-advogado').classList.toggle('hidden', val !== 'Falso advogado');
+        updateTexto();
+    }
+
+    function togglePrejuizo(val) {
+        document.getElementById('valor-box').classList.toggle('hidden', val !== 'sim');
+        updateTexto();
+    }
+
+    function updateTexto() {
+        const meio = document.getElementById('meio').value || "______";
+        const isVirtual = meio === "Virtual";
+        const subtipo = isVirtual ? 
+            document.getElementById('subtipo-virtual').value : 
+            document.getElementById('subtipo-presencial').value;
+        
+        const plataforma = isVirtual ? document.getElementById('plataforma').value : "Contato presencial";
+        const pagamento = document.getElementById('pagamento').value;
+        const temPrejuizo = document.getElementById('tem-prejuizo').value === 'sim';
+        const valor = document.getElementById('valor-prejuizo').value || "0,00";
+        const contato = document.getElementById('detalhe-contato').value;
+
+        
+        const status = temPrejuizo ? "" : "(tentado)";
+        const prejuizoTxt = temPrejuizo ? 
+            `causando o prejuízo de R$ ${valor} à vítima` : 
+            "não causando prejuízo identificado até o momento";
+
+        const texto = `Declaro ter havido sido vítima de estelionato ${status} na modalidade ${meio.toUpperCase()}, correspondente ao tipo ${subtipo || "SUBTIPO"}. O suspeito utilizou os seguintes dados: ${plataforma}: ${contato}, meio de pagamento ${pagamento}, ${prejuizoTxt} cadastrada neste boletim de ocorrência. Declaro estar ciente quanto ao prazo de representação legalmente estabelecido.`;
+        
+        document.getElementById('final-text-area').value = texto;
+    }
+
+    // Inicializa o texto
+    updateTexto();
+</script>
+
+</body>
+</html>
