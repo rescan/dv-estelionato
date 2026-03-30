@@ -13,130 +13,40 @@
             --btn-next: #343a40;
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background-color: #e9ecef;
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .header {
-            text-align: center;
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background-color: #e9ecef; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border: 1px solid var(--border-color); border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .header { text-align: center; padding: 15px; border-bottom: 1px solid var(--border-color); }
         .header h1 { font-size: 22px; margin: 0; color: #222; }
-
         .form-content { padding: 30px; }
-
-        .step-indicator {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 25px;
-        }
-
-        .step {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            text-align: center;
-            font-size: 14px;
-            color: #adb5bd;
-            background: white;
-        }
-
-        .step.active {
-            background: var(--primary-dark);
-            color: white;
-            border-color: var(--primary-dark);
-        }
-
+        .step-indicator { display: flex; gap: 5px; margin-bottom: 25px; }
+        .step { flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; text-align: center; font-size: 14px; color: #adb5bd; background: white; }
+        .step.active { background: var(--primary-dark); color: white; border-color: var(--primary-dark); }
         .field-group { margin-bottom: 20px; }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            font-size: 15px;
-        }
-
-        input[type="text"], input[type="number"], select, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-
+        label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 15px; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; box-sizing: border-box; font-size: 14px; margin-bottom: 8px; }
+        .checkbox-container { display: flex; align-items: center; gap: 8px; margin-top: 5px; margin-bottom: 15px; font-size: 13px; color: #666; }
+        .checkbox-container input { width: auto; margin: 0; }
         .hidden { display: none; }
-
-        .conditional-box {
-            padding: 15px;
-            background: #f1f3f5;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-
-        .footer {
-            padding: 20px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            background: #f8f9fa;
-        }
-
-        .btn {
-            padding: 10px 25px;
-            border-radius: 4px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: white;
-        }
-
+        .conditional-box { padding: 15px; background: #f1f3f5; border-radius: 4px; margin-top: 10px; border-left: 4px solid var(--primary-dark); }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .footer { padding: 20px; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 10px; background: #f8f9fa; }
+        .btn { padding: 10px 25px; border-radius: 4px; border: none; cursor: pointer; font-weight: bold; color: white; }
         .btn-cancel { background: var(--btn-cancel); }
         .btn-next { background: var(--btn-next); }
-
-        #final-text-area {
-            background: #e9ecef;
-            color: #495057;
-            font-family: monospace;
-            resize: none;
-            cursor: not-allowed;
-            height: 120px;
-        }
+        #final-text-area { background: #e9ecef; color: #495057; font-family: monospace; resize: none; height: 220px; line-height: 1.5; padding: 15px; }
+        .version-control { text-align: center; margin-top: 20px; font-size: 11px; color: #888; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <h1>Outras Ocorrências</h1>
-    </div>
-
+    <div class="header"><h1>Estelionato</h1></div>
     <div class="form-content">
         <div class="step-indicator">
             <div class="step">Participação</div>
-            <div class="step active">Dados do Golpe</div>
-            <div class="step">Nascimento</div>
-            <div class="step">Documentos</div>
+            <div class="step active">Dados do Delito</div>
+            <div class="step">Local</div>
+            <div class="step">Finalização</div>
         </div>
 
         <form id="stfForm">
@@ -150,25 +60,21 @@
             </div>
 
             <div id="box-virtual" class="hidden conditional-box">
-                <div class="field-group">
-                    <label>Modalidade Virtual</label>
-                    <select id="subtipo-virtual" onchange="toggleSubtipo(this.value)">
-                        <option value="">Selecione...</option>
-                        <option value="Falso aluguel">Falso aluguel</option>
-                        <option value="Falso advogado">Falso advogado</option>
-                        <option value="Falso boleto">Falso boleto</option>
-                        <option value="Compra suspeita em cartão">Compra suspeita em cartão</option>
-                        <option value="Outros">Outros</option>
-                    </select>
-                </div>
-
+                <label>Modalidade Virtual</label>
+                <select id="subtipo-virtual" onchange="toggleSubtipoVirtual(this.value)">
+                    <option value="">Selecione...</option>
+                    <option value="Falso aluguel">Falso aluguel</option>
+                    <option value="Falso advogado">Falso advogado</option>
+                    <option value="Falso boleto">Falso boleto</option>
+                    <option value="Compra suspeita em cartão">Compra suspeita em cartão</option>
+                    <option value="Outros">Outros</option>
+                </select>
                 <div id="campos-advogado" class="hidden">
-                    <input type="text" id="adv-nome" placeholder="Nome do Advogado" style="margin-bottom:5px">
-                    <input type="text" id="adv-oab" placeholder="OAB e Estado" style="margin-bottom:5px">
+                    <input type="text" id="adv-nome" placeholder="Nome do suposto Advogado" oninput="updateTexto()">
+                    <input type="text" id="adv-oab" placeholder="OAB e Estado" oninput="updateTexto()">
                 </div>
-
-                <div class="field-group">
-                    <label>Plataforma/Meio de Contato do Suspeito</label>
+                <div class="field-group" style="margin-top:15px">
+                    <label>Dados do Suspeito (vários contatos, separar por ponto e vírgula)</label>
                     <select id="plataforma" onchange="updateTexto()">
                         <option value="WhatsApp">WhatsApp</option>
                         <option value="OLX">OLX</option>
@@ -176,26 +82,79 @@
                         <option value="E-mail">E-mail</option>
                         <option value="Outro">Outro</option>
                     </select>
-                    <input type="text" id="detalhe-contato" placeholder="URL, Número ou E-mail do golpista" style="margin-top:10px">
+                    <input type="text" id="detalhe-contato" placeholder="Telefone (com DDI e DDD), URL ou outra identificação..." oninput="updateTexto()">
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="nao-sabe-contato" onchange="toggleNaoSabe('detalhe-contato', this.checked)">
+                        <label for="nao-sabe-contato">Não possuo esta informação sobre o suspeito</label>
+                    </div>
                 </div>
             </div>
 
             <div id="box-presencial" class="hidden conditional-box">
                 <label>Modalidade Presencial</label>
-                <select id="subtipo-presencial" onchange="updateTexto()">
+                <select id="subtipo-presencial" onchange="toggleSubtipoPresencial(this.value)">
                     <option value="Golpe do bilhete premiado">Golpe do bilhete premiado</option>
-                    <option value="Outro">Outro (especificar)</option>
+                    <option value="Outro">Outro</option>
                 </select>
+                <div id="box-outro-presencial" class="hidden">
+                    <textarea id="outro-presencial-txt" maxlength="150" placeholder="Explique a modalidade..." oninput="updateTexto()"></textarea>
+                </div>
             </div>
 
             <div class="field-group">
                 <label>Meio de Pagamento/Transferência</label>
-                <select id="pagamento" onchange="updateTexto()">
+                <select id="pagamento" onchange="togglePagamento(this.value)">
+                    <option value="">Selecione...</option>
                     <option value="Pix">Pix</option>
                     <option value="Boleto">Boleto</option>
                     <option value="Cartão de Crédito">Cartão de Crédito</option>
                     <option value="Outro">Outro</option>
                 </select>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="nao-sabe-pagamento" onchange="toggleNaoSabePagamento(this.checked)">
+                    <label for="nao-sabe-pagamento">Não possuo esta informação sobre o pagamento</label>
+                </div>
+
+                <div id="box-pix" class="hidden conditional-box">
+                    <label>Dados do PIX</label>
+                    <select id="pix-tipo" onchange="updateTexto()">
+                        <option value="telefone">Telefone</option>
+                        <option value="cpf">CPF</option>
+                        <option value="cnpj">CNPJ</option>
+                        <option value="email">E-mail</option>
+                        <option value="chave aleatória">Chave Aleatória</option>
+                    </select>
+                    <input type="text" id="pix-chave" placeholder="Digite a chave PIX" oninput="updateTexto()">
+                </div>
+
+                <div id="box-boleto" class="hidden conditional-box">
+                    <label>Dados do Boleto</label>
+                    <input type="text" id="bol-beneficiario" placeholder="Beneficiário" oninput="updateTexto()">
+                    <input type="text" id="bol-instituicao" placeholder="Instituição Financeira" oninput="updateTexto()">
+                    <div class="grid-2">
+                        <input type="text" id="bol-agencia" placeholder="Agência" oninput="updateTexto()">
+                        <input type="text" id="bol-conta" placeholder="Conta" oninput="updateTexto()">
+                    </div>
+                </div>
+
+                <div id="box-cartao" class="hidden conditional-box">
+                    <label>Dados do Cartão</label>
+                    <div class="grid-2">
+                        <input type="text" id="car-instituicao" placeholder="Inst. Financeira" oninput="updateTexto()">
+                        <input type="text" id="car-bandeira" placeholder="Bandeira (Visa, Mastercard...)" oninput="updateTexto()">
+                    </div>
+                    <input type="text" id="car-titular" placeholder="Titular do Cartão" oninput="updateTexto()">
+                    <div class="grid-2">
+                        <input type="text" id="car-agencia" placeholder="Agência" oninput="updateTexto()">
+                        <input type="text" id="car-conta" placeholder="Conta Bancária" oninput="updateTexto()">
+                    </div>
+                    <input type="text" id="car-fatura" placeholder="Nome na fatura (Ex: MP*JOSE) (separar vários nomes por ponto e vírgula)" oninput="updateTexto()">
+                </div>
+
+                <div id="box-outro-pag" class="hidden conditional-box">
+                    <label>Especifique o meio</label>
+                    <textarea id="outro-pag-txt" maxlength="150" placeholder="Especifique..." oninput="updateTexto()"></textarea>
+                </div>
             </div>
 
             <div class="field-group">
@@ -204,68 +163,121 @@
                     <option value="nao">Não houve prejuízo detectado</option>
                     <option value="sim">Houve prejuízo financeiro</option>
                 </select>
-                <div id="valor-box" class="hidden" style="margin-top:10px">
-                    <input type="number" id="valor-prejuizo" placeholder="R$ 0,00" oninput="updateTexto()">
+                <div id="valor-box" class="hidden">
+                    <input type="text" id="valor-prejuizo" placeholder="R$ 0,00" oninput="formatarMoeda(this)">
                 </div>
             </div>
 
-            <div class="field-group" style="margin-top:30px">
-                <label>Resumo da Declaração (Gerado Automaticamente)</label>
+            <div class="field-group">
+                <label>Outras informações relevantes</label>
+                <textarea id="obs-vítima" maxlength="150" placeholder="Informações adicionais..." oninput="updateTexto()"></textarea>
+            </div>
+
+            <div class="field-group">
+                <label>Relato consolidado</label>
                 <textarea id="final-text-area" readonly></textarea>
             </div>
         </form>
     </div>
-
     <div class="footer">
-        <button class="btn btn-cancel">🚫 Cancelar</button>
-        <button class="btn btn-next">👤 Avançar</button>
+        <button type="button" class="btn btn-cancel">🚫 Cancelar</button>
+        <button type="button" class="btn btn-next">👤 Avançar</button>
     </div>
 </div>
+<div class="version-control">Autor: Renan Scandolara | Última modificação: 30/03/2026, 10h18min</div>
 
 <script>
     function toggleMeio(val) {
-        document.getElementById('box-virtual').classList.toggle('hidden', val !== 'Virtual');
-        document.getElementById('box-presencial').classList.toggle('hidden', val !== 'Presencial');
+        document.getElementById('box-virtual').className = (val === 'Virtual') ? 'conditional-box' : 'hidden';
+        document.getElementById('box-presencial').className = (val === 'Presencial') ? 'conditional-box' : 'hidden';
+        updateTexto();
+    }
+    function toggleSubtipoVirtual(val) {
+        document.getElementById('campos-advogado').className = (val === 'Falso advogado') ? '' : 'hidden';
+        updateTexto();
+    }
+    function toggleSubtipoPresencial(val) {
+        document.getElementById('box-outro-presencial').className = (val === 'Outro') ? '' : 'hidden';
+        updateTexto();
+    }
+    function togglePagamento(val) {
+        ['box-pix', 'box-boleto', 'box-cartao', 'box-outro-pag'].forEach(id => document.getElementById(id).className = 'hidden');
+        if (val === 'Pix') document.getElementById('box-pix').className = 'conditional-box';
+        if (val === 'Boleto') document.getElementById('box-boleto').className = 'conditional-box';
+        if (val === 'Cartão de Crédito') document.getElementById('box-cartao').className = 'conditional-box';
+        if (val === 'Outro') document.getElementById('box-outro-pag').className = 'conditional-box';
         updateTexto();
     }
 
-    function toggleSubtipo(val) {
-        document.getElementById('campos-advogado').classList.toggle('hidden', val !== 'Falso advogado');
+    // NOVA FUNÇÃO: Máscara de Moeda (R$ 123.456,00)
+    function formatarMoeda(i) {
+        let v = i.value.replace(/\D/g,'');
+        v = (v/100).toLocaleString('pt-BR', {minimumFractionDigits: 2});
+        i.value = 'R$ ' + v;
         updateTexto();
     }
 
+    function toggleNaoSabe(inputId, isChecked) {
+        document.getElementById(inputId).disabled = isChecked;
+        if (isChecked) document.getElementById(inputId).value = "";
+        updateTexto();
+    }
+    function toggleNaoSabePagamento(isChecked) {
+        const ids = ['box-pix', 'box-boleto', 'box-cartao', 'box-outro-pag'];
+        ids.forEach(id => {
+            document.querySelectorAll(`#${id} input, #${id} select, #${id} textarea`).forEach(el => {
+                el.disabled = isChecked;
+                if (isChecked) el.value = "";
+            });
+        });
+        updateTexto();
+    }
     function togglePrejuizo(val) {
-        document.getElementById('valor-box').classList.toggle('hidden', val !== 'sim');
+        document.getElementById('valor-box').className = (val === 'sim') ? '' : 'hidden';
         updateTexto();
     }
 
     function updateTexto() {
         const meio = document.getElementById('meio').value || "______";
-        const isVirtual = meio === "Virtual";
-        const subtipo = isVirtual ? 
-            document.getElementById('subtipo-virtual').value : 
-            document.getElementById('subtipo-presencial').value;
+        let subtipo = "______";
         
-        const plataforma = isVirtual ? document.getElementById('plataforma').value : "Contato presencial";
-        const pagamento = document.getElementById('pagamento').value;
-        const temPrejuizo = document.getElementById('tem-prejuizo').value === 'sim';
-        const valor = document.getElementById('valor-prejuizo').value || "0,00";
-        const contato = document.getElementById('detalhe-contato').value;
+        if (meio === "Virtual") {
+            const s = document.getElementById('subtipo-virtual').value;
+            if (s === "Falso advogado") {
+                subtipo = `FALSO ADVOGADO (Suposto Adv: ${document.getElementById('adv-nome').value || "____"}, OAB: ${document.getElementById('adv-oab').value || "____"})`;
+            } else subtipo = s || "______";
+        } else if (meio === "Presencial") {
+            const s = document.getElementById('subtipo-presencial').value;
+            subtipo = (s === 'Outro') ? `OUTRO (${document.getElementById('outro-presencial-txt').value || "____"})` : (s || "______");
+        }
 
-        
-        const status = temPrejuizo ? "" : "(tentado)";
-        const prejuizoTxt = temPrejuizo ? 
-            `causando o prejuízo de R$ ${valor} à vítima` : 
-            "não causando prejuízo identificado até o momento";
+        const plataforma = document.getElementById('plataforma').value;
+        const detalheCont = document.getElementById('detalhe-contato').value;
+        const nSabeCont = document.getElementById('nao-sabe-contato').checked;
+        const infoSuspeito = (meio === "Virtual") ? (nSabeCont ? `via ${plataforma} (dados desconhecidos)` : `via ${plataforma} (${detalheCont || "____"})`) : "contato presencial";
 
-        const texto = `Declaro ter havido sido vítima de estelionato ${status} na modalidade ${meio.toUpperCase()}, correspondente ao tipo ${subtipo || "SUBTIPO"}. O suspeito utilizou os seguintes dados: ${plataforma}: ${contato}, meio de pagamento ${pagamento}, ${prejuizoTxt} cadastrada neste boletim de ocorrência. Declaro estar ciente quanto ao prazo de representação legalmente estabelecido.`;
-        
-        document.getElementById('final-text-area').value = texto;
+        const pagTipo = document.getElementById('pagamento').value || "______";
+        const nSabePag = document.getElementById('nao-sabe-pagamento').checked;
+        let pagResumo = nSabePag ? `${pagTipo} (dados ignorados pela vítima)` : pagTipo;
+
+        if (!nSabePag && pagTipo) {
+            if (pagTipo === 'Pix') pagResumo = `PIX (Chave ${document.getElementById('pix-tipo').value}: ${document.getElementById('pix-chave').value || "____"})`;
+            else if (pagTipo === 'Boleto') pagResumo = `Boleto (Ben: ${document.getElementById('bol-beneficiario').value || "____"}, Inst: ${document.getElementById('bol-instituicao').value || "____"}, Ag: ${document.getElementById('bol-agencia').value || "____"}, Cc: ${document.getElementById('bol-conta').value || "____"})`;
+            else if (pagTipo === 'Cartão de Crédito') pagResumo = `Cartão (Inst: ${document.getElementById('car-instituicao').value || "____"}, Band: ${document.getElementById('car-bandeira').value || "____"}, Titular: ${document.getElementById('car-titular').value || "____"}, Ag: ${document.getElementById('car-agencia').value || "____"}, Cc: ${document.getElementById('car-conta').value || "____"}, Fatura: ${document.getElementById('car-fatura').value || "____"})`;
+            else if (pagTipo === 'Outro') pagResumo = `Outro (${document.getElementById('outro-pag-txt').value || "____"})`;
+        }
+
+        const temPrej = document.getElementById('tem-prejuizo').value === 'sim';
+        const valor = document.getElementById('valor-prejuizo').value || "R$ 0,00";
+        const status = temPrej ? "" : "(tentado)";
+        const prejuizoTxt = temPrej ? `causando o prejuízo de ${valor} à vítima` : "não causando prejuízo identificado até o momento";
+
+        const obs = document.getElementById('obs-vítima').value;
+        const obsFinal = obs ? `\n\nOUTRAS OBSERVAÇÕES: ${obs}` : "";
+
+        document.getElementById('final-text-area').value = `Declaro ter sido vítima de estelionato ${status} na modalidade ${meio.toUpperCase()}, tipo ${subtipo}. O suspeito utilizou contato ${infoSuspeito}, sendo o pagamento realizado via ${pagResumo}, ${prejuizoTxt} cadastrada neste boletim de ocorrência.${obsFinal}`;
     }
-
-    // Inicializa o texto
     updateTexto();
 </script>
-
 </body>
 </html>
