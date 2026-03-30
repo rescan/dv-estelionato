@@ -140,7 +140,7 @@
                 <div id="box-cartao" class="hidden conditional-box">
                     <label>Dados do Cartão</label>
                     <div class="grid-2">
-                        <input type="text" id="car-instituicao" placeholder="Inst. Financeira" oninput="updateTexto()">
+                        <input type="text" id="car-instituicao" placeholder="Instituição financeira" oninput="updateTexto()">
                         <input type="text" id="car-bandeira" placeholder="Bandeira (Visa, Mastercard...)" oninput="updateTexto()">
                     </div>
                     <input type="text" id="car-titular" placeholder="Titular do Cartão" oninput="updateTexto()">
@@ -263,7 +263,7 @@
         if (!nSabePag && pagTipo) {
             if (pagTipo === 'Pix') pagResumo = `PIX (Chave ${document.getElementById('pix-tipo').value}: ${document.getElementById('pix-chave').value || "____"})`;
             else if (pagTipo === 'Boleto') pagResumo = `Boleto (Ben: ${document.getElementById('bol-beneficiario').value || "____"}, Inst: ${document.getElementById('bol-instituicao').value || "____"}, Ag: ${document.getElementById('bol-agencia').value || "____"}, Cc: ${document.getElementById('bol-conta').value || "____"})`;
-            else if (pagTipo === 'Cartão de Crédito') pagResumo = `Cartão (Inst: ${document.getElementById('car-instituicao').value || "____"}, Band: ${document.getElementById('car-bandeira').value || "____"}, Titular: ${document.getElementById('car-titular').value || "____"}, Ag: ${document.getElementById('car-agencia').value || "____"}, Cc: ${document.getElementById('car-conta').value || "____"}, Fatura: ${document.getElementById('car-fatura').value || "____"})`;
+            else if (pagTipo === 'Cartão de Crédito') pagResumo = `Cartão (Banco: ${document.getElementById('car-instituicao').value || "____"}, Bandeira: ${document.getElementById('car-bandeira').value || "____"}, Titular: ${document.getElementById('car-titular').value || "____"}, Agência: ${document.getElementById('car-agencia').value || "____"}, Conta: ${document.getElementById('car-conta').value || "____"}, Identificação da compra na fatura: ${document.getElementById('car-fatura').value || "____"})`;
             else if (pagTipo === 'Outro') pagResumo = `Outro (${document.getElementById('outro-pag-txt').value || "____"})`;
         }
 
